@@ -1,0 +1,169 @@
+\<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Для Машули ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial;
+}
+
+/* Сердце */
+.heart {
+    position: relative;
+    width: 320px;
+    height: 300px;
+    background: red;
+    transform: rotate(-45deg) scale(0);
+    animation: pop 1.5s forwards;
+}
+
+.heart:before,
+.heart:after {
+    content: "";
+    position: absolute;
+    width: 320px;
+    height: 300px;
+    background: red;
+    border-radius: 50%;
+}
+
+.heart:before { top: -160px; }
+.heart:after { left: 160px; }
+
+/* Фото */
+.photo {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    overflow: hidden;
+    transform: rotate(45deg);
+    top: 20px;
+    left: 30px;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Имя */
+.name {
+    position: absolute;
+    transform: rotate(45deg);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    top: 210px;
+    width: 300px;
+    text-align: center;
+}
+
+/* Я тебя люблю */
+.love-text {
+    position: absolute;
+    top: 80%;
+    font-size: 30px;
+    color: white;
+    letter-spacing: 3px;
+}
+
+.love-text span {
+    opacity: 0;
+    animation: fade 0.5s forwards;
+}
+
+@keyframes fade {
+    to { opacity: 1; }
+}
+
+/* Котики */
+.cat {
+    position: absolute;
+    font-size: 50px;
+    animation: float 6s infinite ease-in-out;
+}
+
+@keyframes float {
+    50% { transform: translateY(-40px); }
+}
+
+/* Летающие сердечки */
+.heart-float {
+    position: absolute;
+    font-size: 20px;
+    animation: rise linear infinite;
+}
+
+@keyframes rise {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Появление */
+@keyframes pop {
+    to { transform: rotate(-45deg) scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Музыка -->
+<audio id="music" src="music.mp3"></audio>
+
+<div class="heart">
+    <div class="photo">
+        <img src="photo.jpg">
+    </div>
+    <div class="name">Машуля ❤️</div>
+</div>
+
+<div class="love-text" id="love"></div>
+
+<!-- Котики -->
+<div class="cat" style="top:10%; left:10%;">🐱</div>
+<div class="cat" style="top:20%; right:10%;">🐱</div>
+<div class="cat" style="bottom:10%; left:15%;">🐱</div>
+<div class="cat" style="bottom:15%; right:15%;">🐱</div>
+
+<script>
+// Музыка по клику
+document.body.addEventListener("click", () => {
+    document.getElementById("music").play();
+}, { once: true });
+
+// Летающие сердечки
+for (let i = 0; i < 40; i++) {
+    let h = document.createElement("div");
+    h.className = "heart-float";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random()*100 + "vw";
+    h.style.animationDuration = (3 + Math.random()*5) + "s";
+    document.body.appendChild(h);
+}
+
+// Текст по буквам
+let text = "Я тебя люблю ❤️";
+let container = document.getElementById("love");
+
+text.split("").forEach((letter, i) => {
+    let span = document.createElement("span");
+    span.innerText = letter;
+    span.style.animationDelay = i * 0.2 + "s";
+    container.appendChild(span);
+});
+</script>
+
+</body>
+</html>
